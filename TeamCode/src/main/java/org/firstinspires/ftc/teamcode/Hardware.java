@@ -12,6 +12,7 @@ public class Hardware {
 
     public double clawClose = 0.3;
     public double clawOpen = 0.6;
+    public boolean clawIsOpen = false;
 
     public Hardware(HardwareMap hwMap) {
         //Drive motors
@@ -37,8 +38,11 @@ public class Hardware {
     }
     public void openClaw() {
         claw.setPosition(clawOpen);
+        clawIsOpen = true;
+
     }
     public void closeClaw() {
         claw.setPosition(clawClose);
+        clawIsOpen = false;
     }
 }
