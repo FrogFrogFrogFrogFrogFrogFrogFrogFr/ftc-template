@@ -24,7 +24,11 @@ public class Auto extends LinearOpMode {
         moveForward(.6, 500);
         moveBackward(.6, 500);
         turnRight(.6, 500);
+        armUp(200);
         robot.closeClaw();
+        robot.openClaw();
+        armDown(200);
+        robot.openClaw();
         robot.openClaw();
     }
 
@@ -59,6 +63,17 @@ public class Auto extends LinearOpMode {
         sleep(time);
         robot.left.setPower(0);
         robot.right.setPower(0);
+    }
+
+    public void armUp(long time) {
+        robot.arm.setPower(-.3);
+        sleep(time);
+        robot.arm.setPower(.3);
+    }
+    public void armDown(long time) {
+        robot.arm.setPower(.3);
+        sleep(time);
+        robot.arm.setPower(.3);
     }
 
 }

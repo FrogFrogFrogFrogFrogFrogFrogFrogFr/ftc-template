@@ -9,6 +9,7 @@ public class Hardware {
     public DcMotor left;
     public DcMotor right;
     public Servo claw;
+    public DcMotor arm;
 
     public double clawClose = 0.3;
     public double clawOpen = 0.6;
@@ -31,6 +32,11 @@ public class Hardware {
 
         //Servos
         claw = hwMap.get(Servo.class, "claw");
+
+        arm = hwMap.get(DcMotor.class, "arm");
+
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void init() {
