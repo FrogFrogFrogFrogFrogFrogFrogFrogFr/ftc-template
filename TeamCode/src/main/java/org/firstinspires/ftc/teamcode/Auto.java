@@ -46,7 +46,6 @@ public class Auto extends LinearOpMode {
         robot.right.setPower(-power);
         sleep(time);
         robot.left.setPower(0);
-
         robot.right.setPower(0);
     }
 
