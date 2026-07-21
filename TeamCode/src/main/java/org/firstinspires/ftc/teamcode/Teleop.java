@@ -56,28 +56,36 @@ public class Teleop extends LinearOpMode {
             // Setup a variable for each drive wheel to save power level for telemetry
             double leftPower;
             double rightPower;
+            boolean slowMode = false;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
+            double drive = gamepad1.right_bumper ? -gamepad1.left_stick_y * 0.5 : -gamepad1.left_stick_y;
+            double turn  =  gamepad1.right_bumper ? gamepad1.right_stick_x * 0.5 : gamepad1.right_stick_x;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0);
             rightPower   = Range.clip(drive - turn, -1.0, 1.0);
-
             robot.left.setPower(leftPower);
             robot.right.setPower(rightPower);
 
             //claw control
-            if(gamepad2.y) {
-                if(robot.clawIsOpen) {
-                    robot.closeClaw();
-                } else {
-                    robot.openClaw();
-                }
+            if(gamepad2.right_trigger_pressed) {
+                robot.openClaw();
             }
+            if(gamepad2.left_trigger_pressed) {
+                robot.closeClaw();
+            }
+
+            if(gamepad2.right_stick_y > 0) {
+                robot.arm.setPower(0.4);
+            } else if (gamepad2.right_stick_y < 0) {
+                robot.arm.setPower(-0.4);
+            } else if (gamepad2.right_stick_y == 0) {
+                robot.arm.setPower(0);
+            }
+
         }
 
     }}

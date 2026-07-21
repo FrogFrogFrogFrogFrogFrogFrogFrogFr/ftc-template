@@ -4,11 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "Null Auto")
-public class Auto extends LinearOpMode {
+@Autonomous(name = "Blue Auto")
+public class BlueAuto extends LinearOpMode {
 
-    public double ticksPerInch = 0;
-    public double ticksPerDegree = 0;
+    public double ticksPerInch = 45.29;
+    public double ticksPerDegree = 5.67;
     public Hardware robot;
 
     //When you press init
@@ -20,19 +20,25 @@ public class Auto extends LinearOpMode {
         //waits for u to press start button
         waitForStart();
 
-        //auto actual code
-        moveForward(.6, 500);
-        moveBackward(.6, 500);
-        turnLeft(.6, 500);
-        moveForward(.6, 500);
-        moveBackward(.6, 500);
-        turnRight(.6, 500);
-        armUp(200);
+        //auto actual code                //ALEX LIKES BOYS
         robot.closeClaw();
+        forwardEncoder(0.2,12);
+        turnRightEncoder(0.2, 90);
+        forwardEncoder(0.2,6);
+        turnLeftEncoder(0.2, 90);
+        forwardEncoder(0.2, 12);
         robot.openClaw();
-        armDown(200);
-        robot.openClaw();
-        robot.openClaw();
+
+        while(opModeIsActive()) {
+            telemetry.addData("ticks l", robot.left.getCurrentPosition());
+            telemetry.addData("ticks r", robot.right.getCurrentPosition());
+
+            telemetry.addData("target l", robot.left.getCurrentPosition());
+            telemetry.addData("target r", robot.right.getCurrentPosition());
+
+            telemetry.update();
+        }
+        sleep(150000);
     }
 
     //auto methods
@@ -91,14 +97,14 @@ public class Auto extends LinearOpMode {
         robot.right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.left.setPower(power);
-        robot.left.setPower(power);
+        robot.right.setPower(power);
     }
 
-    public void turnLeftEncoder(double power, double inches) {
+    public void turnLeftEncoder(double power, double degrees) {
         robot.left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        int ticks = (int) (inches * ticksPerDegree);
+        int ticks = (int) (degrees * ticksPerDegree);
 
         robot.left.setTargetPosition(ticks);
         robot.right.setTargetPosition(-ticks);
@@ -107,14 +113,14 @@ public class Auto extends LinearOpMode {
         robot.right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.left.setPower(power);
-        robot.left.setPower(power);
+        robot.right.setPower(power);
     }
 
-    public void turnRightEncoder(double power, double inches) {
+    public void turnRightEncoder(double power, double degrees) {
         robot.left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        int ticks = (int) (inches * ticksPerDegree);
+        int ticks = (int) (degrees * ticksPerDegree);
 
         robot.left.setTargetPosition(-ticks);
         robot.right.setTargetPosition(ticks);
@@ -123,12 +129,12 @@ public class Auto extends LinearOpMode {
         robot.right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.left.setPower(power);
-        robot.left.setPower(power);
+        robot.right.setPower(power);
     }
 
     public void backwardEncoder(double power, double inches) {
         robot.left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         int ticks = (int) (inches * ticksPerInch);
 
@@ -139,7 +145,7 @@ public class Auto extends LinearOpMode {
         robot.right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.left.setPower(-power);
-        robot.left.setPower(-power);
+        robot.right.setPower(-power);
     }
 
 }
