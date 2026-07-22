@@ -21,13 +21,15 @@ public class BlueAuto extends LinearOpMode {
         waitForStart();
 
         //auto actual code                //ALEX LIKES BOYS
-        robot.closeClaw();
-        forwardEncoder(0.2,12);
-        turnRightEncoder(0.2, 90);
-        forwardEncoder(0.2,6);
-        turnLeftEncoder(0.2, 90);
-        forwardEncoder(0.2, 12);
-        robot.openClaw();
+        robot.arm.setPower(0);
+        forwardEncoder(0.2,49);
+        sleep(5000);
+        turnRightEncoder(0.2, 45);
+        sleep(5000);
+        forwardEncoder(0.2, 29);
+        sleep(5000);
+        backwardEncoder(0.2, 24);
+        robot.arm.setPower(0);
 
         while(opModeIsActive()) {
             telemetry.addData("ticks l", robot.left.getCurrentPosition());
@@ -138,14 +140,14 @@ public class BlueAuto extends LinearOpMode {
 
         int ticks = (int) (inches * ticksPerInch);
 
-        robot.left.setTargetPosition(ticks);
-        robot.right.setTargetPosition(ticks);
+        robot.left.setTargetPosition(-ticks);
+        robot.right.setTargetPosition(-ticks);
 
         robot.left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.left.setPower(-power);
-        robot.right.setPower(-power);
+        robot.left.setPower(power);
+        robot.right.setPower(power);
     }
 
 }
