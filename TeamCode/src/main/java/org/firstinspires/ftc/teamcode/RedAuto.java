@@ -22,11 +22,11 @@ public class RedAuto extends LinearOpMode {
 
         //auto actual code                //ALEX LIKES BOYS
         robot.arm.setPower(0);
-        forwardEncoder(0.2,49);
+        forwardEncoder(0.2,50);
         sleep(5000);
         turnLeftEncoder(0.2, 45);
         sleep(5000);
-        forwardEncoder(0.2, 29);
+        forwardEncoder(0.2, 28);
         sleep(5000);
         backwardEncoder(0.2, 24);
         robot.arm.setPower(0);
@@ -140,14 +140,14 @@ public class RedAuto extends LinearOpMode {
 
         int ticks = (int) (inches * ticksPerInch);
 
-        robot.left.setTargetPosition(ticks);
-        robot.right.setTargetPosition(ticks);
+        robot.left.setTargetPosition(-ticks);
+        robot.right.setTargetPosition(-ticks);
 
         robot.left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.left.setPower(-power);
-        robot.right.setPower(-power);
+        robot.left.setPower(power);
+        robot.right.setPower(power);
     }
 
 }
