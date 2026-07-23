@@ -22,7 +22,7 @@ public class BlueAuto extends LinearOpMode {
 
         //auto actual code                //ALEX LIKES BOYS
         robot.arm.setPower(0);
-        forwardEncoder(0.2,50);
+        forwardEncoder(0.2,49.5);
         sleep(5000);
         turnRightEncoder(0.2, 45);
         sleep(5000);

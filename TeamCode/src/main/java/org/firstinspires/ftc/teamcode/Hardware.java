@@ -12,8 +12,8 @@ public class Hardware {
     public Servo claw;
     public DcMotor arm;
 
-    public double clawClose = 0.4;
-    public double clawOpen = 0.6;
+    public double clawClose = 0.6;
+    public double clawOpen = 1.1;
     public boolean clawIsOpen = false;
 
     public Hardware(HardwareMap hwMap) {
